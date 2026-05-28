@@ -18,12 +18,18 @@ export default function Header({
   elements,
   setElements,
   setElementsNum,
+  setStatusNotification,
+  setShowNotification,
 }: {
   location?: string;
   elementsnum?: number;
   elements?: Dish[];
   setElements?: React.Dispatch<React.SetStateAction<Dish[]>>;
   setElementsNum?: React.Dispatch<React.SetStateAction<number>>;
+  setStatusNotification?: React.Dispatch<
+    React.SetStateAction<"success" | "error">
+  >;
+  setShowNotification?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
   const routerLocation = useLocation();
@@ -66,6 +72,11 @@ export default function Header({
     setElementsNum(updated.length);
     localStorage.setItem("cartItems", JSON.stringify(updated));
     localStorage.setItem("cartItemsNum", updated.length.toString());
+    setShowNotification && setShowNotification(true);
+    setStatusNotification && setStatusNotification("success");
+    setTimeout(() => {
+      setShowNotification && setShowNotification(false);
+    }, 2000);
   };
 
   const handleDecrease = (dish: Dish) => {
@@ -80,6 +91,11 @@ export default function Header({
     setElementsNum(updated.length);
     localStorage.setItem("cartItems", JSON.stringify(updated));
     localStorage.setItem("cartItemsNum", updated.length.toString());
+    setStatusNotification && setStatusNotification("error");
+    setShowNotification && setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification && setShowNotification(false);
+    }, 2000);
   };
 
   const handleRemove = (dish: Dish) => {
@@ -89,6 +105,11 @@ export default function Header({
     setElementsNum(updated.length);
     localStorage.setItem("cartItems", JSON.stringify(updated));
     localStorage.setItem("cartItemsNum", updated.length.toString());
+    setStatusNotification && setStatusNotification("error");
+    setShowNotification && setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification && setShowNotification(false);
+    }, 2000);
   };
 
   const navLinks = ["Home", "About", "Menu", "Contact"];

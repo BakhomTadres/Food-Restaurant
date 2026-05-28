@@ -1,6 +1,7 @@
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import { useState } from "react";
+import Notification from "./Components/Notification";
 
 export default function Menu() {
   let [elementsInCartNum, setElementsInCartNum] = useState<number>(
@@ -19,6 +20,11 @@ export default function Menu() {
     const cartItems = localStorage.getItem("cartItems");
     return cartItems ? JSON.parse(cartItems) : [];
   });
+
+  let [showNotification, setShowNotification] = useState<boolean>(false);
+  let [statusNotification, setStatusNotification] = useState<
+    "success" | "error"
+  >("success");
 
   let dishes: {
     id: number;
@@ -108,6 +114,11 @@ export default function Menu() {
     setElementsInCartNum(updated.length);
     localStorage.setItem("cartItems", JSON.stringify(updated));
     localStorage.setItem("cartItemsNum", updated.length.toString());
+    setShowNotification(true);
+    setStatusNotification("success");
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 2000);
   };
 
   return (
@@ -118,7 +129,10 @@ export default function Menu() {
         setElements={setElementsInCart}
         setElementsNum={setElementsInCartNum}
         elementsnum={elementsInCartNum}
+        setStatusNotification={setStatusNotification}
+        setShowNotification={setShowNotification}
       />
+      {showNotification && <Notification type={statusNotification} />}
       <div className="min-h-screen bg-gray-900 pt-10">
         <h1 className="text-2xl font-bold text-center mt-20 mb-10 text-amber-50">
           Menu
@@ -152,7 +166,7 @@ export default function Menu() {
             </div>
           ))}
         </div>
-          <Footer />
+        <Footer />
       </div>
     </>
   );
