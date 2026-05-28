@@ -31,7 +31,7 @@ export default function Menu() {
     {
       id: 1,
       name: "Beef Burger",
-      src: "/public/burger.jpg",
+      src: "/images/burger.jpg",
       alt: "Menu",
       desc: "A delicious sandwich with fresh ingredients and a perfect blend of flavors.",
       price: 8.0,
@@ -39,7 +39,7 @@ export default function Menu() {
     {
       id: 2,
       name: "Pizza",
-      src: "/public/pizza.jpg",
+      src: "/images/pizza.jpg",
       alt: "Menu",
       desc: "Our pizza is made with freshly prepared dough, premium cheese, and delicious.",
       price: 10.0,
@@ -47,7 +47,7 @@ export default function Menu() {
     {
       id: 3,
       name: "Sandwich",
-      src: "/public/sandwich.jpg",
+      src: "/images/sandwich.jpg",
       alt: "Menu",
       desc: "A delicious Sandwich with fresh ingredients and a perfect blend of flavors.",
       price: 7.0,
@@ -55,7 +55,7 @@ export default function Menu() {
     {
       id: 4,
       name: "Red Pasta Sauce",
-      src: "/public/red-sauce-pasta.webp",
+      src: "/images/red-sauce-pasta.webp",
       alt: "Menu",
       desc: "A delicious and flavorful pasta dish with a rich and flavorful red sauce.",
       price: 9.0,
@@ -63,7 +63,7 @@ export default function Menu() {
     {
       id: 5,
       name: "spaghetti",
-      src: "/public/spaghetti.jpg",
+      src: "/images/spaghetti.jpg",
       alt: "Menu",
       desc: "A delicious spaghetti dish with a rich and flavorful sauce.",
       price: 6.0,
@@ -71,7 +71,7 @@ export default function Menu() {
     {
       id: 6,
       name: "Grilled Chicken",
-      src: "/public/grilled-chicken.jpg",
+      src: "/images/grilled-chicken.jpg",
       alt: "Menu",
       desc: "A delicious grilled chicken dish with a rich and flavorful sauce.",
       price: 12.0,
@@ -79,7 +79,7 @@ export default function Menu() {
     {
       id: 7,
       name: "Fried Chicken",
-      src: "/public/fried-chicken.jpg",
+      src: "/images/fried-chicken.jpg",
       alt: "Menu",
       desc: "A delicious fried chicken dish with a rich and flavorful sauce.",
       price: 15.0,
@@ -87,7 +87,7 @@ export default function Menu() {
     {
       id: 8,
       name: "Dessert",
-      src: "/public/dessert.jpg",
+      src: "/images/dessert.jpg",
       alt: "Menu",
       desc: "A delicious dessert dish with a rich and flavorful taste.",
       price: 5.0,
@@ -95,7 +95,7 @@ export default function Menu() {
     {
       id: 9,
       name: "Mango Juice",
-      src: "/public/mango-juice.jpg",
+      src: "/images/mango-juice.jpg",
       alt: "Menu",
       desc: "A delicious mango juice with a rich and flavorful taste.",
       price: 3.0,
