@@ -2,6 +2,7 @@ import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Notification from "./Components/Notification";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ export default function HomePage() {
   let [elementsInCartNum, setElementsInCartNum] = useState<number>(
     () => Number(localStorage.getItem("cartItemsNum")) || 0,
   );
+  let [showNotification, setShowNotification] = useState<boolean>(false);
+  let [statusNotification, setStatusNotification] = useState<
+    "success" | "error"
+  >("success");
+
   let [elementsInCart, setElementsInCart] = useState<
     {
       id: number;
@@ -47,7 +53,11 @@ export default function HomePage() {
         setElements={setElementsInCart}
         setElementsNum={setElementsInCartNum}
         elementsnum={elementsInCartNum}
+        setStatusNotification={setStatusNotification}
+        setShowNotification={setShowNotification}
       />
+
+      {showNotification && <Notification type={statusNotification} />}
 
       {/* Hero Section */}
       <div className="relative bg-[url(/images/background.avif)] bg-right md:bg-center bg-cover min-h-screen flex items-center">

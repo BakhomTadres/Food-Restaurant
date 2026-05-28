@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Components/Header";
+import Notification from "./Components/Notification";
 
 type Dish = {
   id: number;
@@ -29,6 +30,11 @@ export default function Checkout() {
   const [orderId] = useState(
     () => "#" + Math.random().toString(36).substring(2, 8).toUpperCase(),
   );
+
+  let [showNotification, setShowNotification] = useState<boolean>(false);
+  let [statusNotification, setStatusNotification] = useState<
+    "success" | "error"
+  >("success");
 
   const [elements, setElements] = useState<Dish[]>(() => {
     const saved = localStorage.getItem("cartItems");
@@ -187,6 +193,7 @@ export default function Checkout() {
           setElementsNum={setElementsNum}
           elementsnum={elementsNum}
         />
+
         <div className="text-center mt-20">
           <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
             <i className="fa-solid fa-cart-shopping text-4xl text-gray-600"></i>
@@ -218,6 +225,7 @@ export default function Checkout() {
           setElementsNum={setElementsNum}
           elementsnum={0}
         />
+
         <div className="max-w-md w-full text-center mt-20">
           {/* Animated checkmark */}
           <div className="relative w-28 h-28 mx-auto mb-8">
@@ -315,7 +323,10 @@ export default function Checkout() {
         setElements={setElements}
         setElementsNum={setElementsNum}
         elementsnum={elementsNum}
+        setStatusNotification={setStatusNotification}
+        setShowNotification={setShowNotification}
       />
+      {showNotification && <Notification type={statusNotification} />}
 
       <div className="max-w-7xl mx-auto px-4 pt-28 pb-20">
         {/* Page Title */}

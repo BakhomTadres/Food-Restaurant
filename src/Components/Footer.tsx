@@ -8,7 +8,6 @@ export default function Footer() {
     <footer className="bg-gray-950 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
@@ -20,7 +19,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed max-w-xs mb-6">
-              Fresh ingredients, great taste, and love in every dish. Serving our community since 2018.
+              Fresh ingredients, great taste, and love in every dish. Serving
+              our community since 2018.
             </p>
             <div className="flex gap-3">
               {[
@@ -47,7 +47,9 @@ export default function Footer() {
               {["Home", "About", "Menu", "Contact"].map((item) => (
                 <li key={item}>
                   <a
-                    onClick={() => navigate(item === "Home" ? "/" : `/${item.toLowerCase()}`)}
+                    onClick={() =>
+                      navigate(item === "Home" ? "/" : `/${item.toLowerCase()}`)
+                    }
                     className="text-gray-400 hover:text-amber-400 text-sm cursor-pointer transition-colors duration-200"
                   >
                     {item}
@@ -67,8 +69,13 @@ export default function Footer() {
                 { icon: "fa-envelope", text: "hello@food.com" },
                 { icon: "fa-clock", text: "Daily 9am – 11pm" },
               ].map(({ icon, text }) => (
-                <li key={text} className="flex items-start gap-2 text-gray-400 text-sm">
-                  <i className={`fa-solid ${icon} text-amber-400 mt-0.5 w-4 shrink-0`}></i>
+                <li
+                  key={text}
+                  className="flex items-start gap-2 text-gray-400 text-sm"
+                >
+                  <i
+                    className={`fa-solid ${icon} text-amber-400 mt-0.5 w-4 shrink-0`}
+                  ></i>
                   {text}
                 </li>
               ))}
@@ -82,7 +89,11 @@ export default function Footer() {
           </p>
           <div className="flex gap-4">
             {["Privacy Policy", "Terms of Service"].map((item) => (
-              <a key={item} href="#" className="text-gray-500 hover:text-amber-400 text-sm transition cursor-pointer">
+              <a
+                key={item}
+                href="#"
+                className="text-gray-500 hover:text-amber-400 text-sm transition cursor-pointer"
+              >
                 {item}
               </a>
             ))}

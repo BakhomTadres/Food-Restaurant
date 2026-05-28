@@ -1,5 +1,6 @@
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Notification from "./Components/Notification";
 import { useState } from "react";
 
 export default function Contact() {
@@ -13,6 +14,11 @@ export default function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  let [showNotification, setShowNotification] = useState<boolean>(false);
+  let [statusNotification, setStatusNotification] = useState<
+    "success" | "error"
+  >("success");
 
   let [elementsInCartNum, setElementsInCartNum] = useState<number>(
     () => Number(localStorage.getItem("cartItemsNum")) || 0,
@@ -98,7 +104,11 @@ export default function Contact() {
         setElements={setElementsInCart}
         setElementsNum={setElementsInCartNum}
         elementsnum={elementsInCartNum}
+        setStatusNotification={setStatusNotification}
+        setShowNotification={setShowNotification}
       />
+
+      {showNotification && <Notification type={statusNotification} />}
 
       {/* Hero */}
       <div className="pt-28 pb-16 px-6">
