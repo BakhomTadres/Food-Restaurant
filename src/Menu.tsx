@@ -71,7 +71,7 @@ export default function Menu() {
     {
       id: 6,
       name: "Grilled Chicken",
-      src: "/images/grilled-chicken.jpg",
+      src: "/images/Grilled-Chicken.jpg",
       alt: "Menu",
       desc: "A delicious grilled chicken dish with a rich and flavorful sauce.",
       price: 12.0,

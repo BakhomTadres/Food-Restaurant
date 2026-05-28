@@ -64,7 +64,7 @@ export default function About() {
 
           <div className="relative">
             <img
-              src="/public/about.jpg"
+              src="/images/about.jpg"
               alt="About Us"
               className="w-full h-72 md:h-96 object-cover rounded-3xl shadow-2xl shadow-black/40"
             />
