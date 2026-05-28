@@ -1,5 +1,6 @@
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Notification from "./Components/Notification";
 import { useState } from "react";
 export default function About() {
   const values = [
@@ -24,6 +25,11 @@ export default function About() {
       desc: "Uncompromising standards in every meal we serve.",
     },
   ];
+
+  let [showNotification, setShowNotification] = useState<boolean>(false);
+  let [statusNotification, setStatusNotification] = useState<
+    "success" | "error"
+  >("success");
 
   const team = [
     { name: "Chef Ahmed", role: "Head Chef", emoji: "👨‍🍳" },
@@ -55,7 +61,11 @@ export default function About() {
         setElements={setElementsInCart}
         setElementsNum={setElementsInCartNum}
         elementsnum={elementsInCartNum}
+        setStatusNotification={setStatusNotification}
+        setShowNotification={setShowNotification}
       />
+
+      {showNotification && <Notification type={statusNotification} />}
 
       {/* Hero */}
       <div className="pt-28 pb-16 px-6">
