@@ -42,10 +42,12 @@ export default function HomePage() {
 
   return (
     <>
-      <Header elements={elementsInCart}
+      <Header
+        elements={elementsInCart}
         setElements={setElementsInCart}
         setElementsNum={setElementsInCartNum}
-        elementsnum={elementsInCartNum}/>
+        elementsnum={elementsInCartNum}
+      />
 
       {/* Hero Section */}
       <div className="relative bg-[url(/images/background.avif)] bg-right md:bg-center bg-cover min-h-screen flex items-center">

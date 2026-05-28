@@ -44,7 +44,7 @@ export default function Footer() {
           <div>
             <h4 className="text-amber-50 font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {["Home", "Menu", "About", "Contact"].map((item) => (
+              {["Home", "About", "Menu", "Contact"].map((item) => (
                 <li key={item}>
                   <a
                     onClick={() => navigate(item === "Home" ? "/" : `/${item.toLowerCase()}`)}
