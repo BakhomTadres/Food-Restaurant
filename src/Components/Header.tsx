@@ -93,7 +93,11 @@ export default function Header({
 
   const navLinks = ["Home", "About", "Menu", "Contact"];
 
-  const isOpaque = pageLoc === "menu" || pageLoc === "contact" || pageLoc === "about" || scrolled;
+  const isOpaque =
+    pageLoc === "menu" ||
+    pageLoc === "contact" ||
+    pageLoc === "about" ||
+    scrolled;
 
   return (
     <>
@@ -155,7 +159,9 @@ export default function Header({
                   {elementsnum > 99 ? "99+" : elementsnum}
                 </span>
               )}
-              <span className="hidden sm:inline text-sm font-semibold">Cart</span>
+              <span className="hidden sm:inline text-sm font-semibold">
+                Cart
+              </span>
             </button>
 
             <button
@@ -170,7 +176,9 @@ export default function Header({
               }}
               className="hidden sm:flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm px-4 py-2 rounded-lg transition-all duration-200 cursor-pointer"
             >
-              <i className={`fa-solid ${isLogined ? "fa-right-from-bracket" : "fa-user-plus"} text-xs`}></i>
+              <i
+                className={`fa-solid ${isLogined ? "fa-right-from-bracket" : "fa-user-plus"} text-xs`}
+              ></i>
               {isLogined ? "Log out" : "Sign Up"}
             </button>
 
@@ -214,18 +222,27 @@ export default function Header({
             return (
               <a
                 key={item}
-                onClick={() => { navigate(href); setShowMenu(false); }}
+                onClick={() => {
+                  navigate(href);
+                  setShowMenu(false);
+                }}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold cursor-pointer transition-all duration-200 ${
                   isActive
                     ? "bg-amber-400/20 text-amber-400"
                     : "text-amber-50/70 hover:text-amber-50 hover:bg-white/10"
                 }`}
               >
-                <i className={`fa-solid ${
-                  item === "Home" ? "fa-house" :
-                  item === "About" ? "fa-circle-info" :
-                  item === "Menu" ? "fa-utensils" : "fa-envelope"
-                } w-4 text-sm`}></i>
+                <i
+                  className={`fa-solid ${
+                    item === "Home"
+                      ? "fa-house"
+                      : item === "About"
+                        ? "fa-circle-info"
+                        : item === "Menu"
+                          ? "fa-utensils"
+                          : "fa-envelope"
+                  } w-4 text-sm`}
+                ></i>
                 {item}
               </a>
             );
@@ -262,7 +279,6 @@ export default function Header({
           showCart ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-
         <div className="bg-gray-900 text-amber-50 px-5 py-4 flex items-center justify-between">
           <h2 className="text-lg font-black flex items-center gap-2">
             <i className="fa-solid fa-cart-shopping text-amber-400"></i>
@@ -289,10 +305,15 @@ export default function Header({
               </div>
               <div>
                 <p className="font-bold text-gray-700 text-lg">Cart is empty</p>
-                <p className="text-gray-400 text-sm mt-1">Add dishes from the menu!</p>
+                <p className="text-gray-400 text-sm mt-1">
+                  Add dishes from the menu!
+                </p>
               </div>
               <button
-                onClick={() => { setShowCart(false); navigate("/menu"); }}
+                onClick={() => {
+                  setShowCart(false);
+                  navigate("/menu");
+                }}
                 className="bg-gray-900 text-amber-50 px-6 py-2 rounded-xl font-semibold text-sm hover:bg-gray-700 transition cursor-pointer"
               >
                 Browse Menu
@@ -313,7 +334,9 @@ export default function Header({
                   />
                   <div className="flex flex-col justify-between flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="font-bold text-gray-900 text-sm leading-tight">{item.name}</p>
+                      <p className="font-bold text-gray-900 text-sm leading-tight">
+                        {item.name}
+                      </p>
                       <button
                         onClick={() => handleRemove(item)}
                         className="text-gray-300 hover:text-red-400 transition text-xs shrink-0 cursor-pointer"
@@ -340,7 +363,9 @@ export default function Header({
                       >
                         +
                       </button>
-                      <span className="text-gray-400 text-xs ml-1">× ${item.price.toFixed(2)}</span>
+                      <span className="text-gray-400 text-xs ml-1">
+                        × ${item.price.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </li>
@@ -352,11 +377,22 @@ export default function Header({
         {cartItems.length > 0 && (
           <div className="border-t border-gray-200 bg-white px-5 py-4">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-gray-500 text-sm">Subtotal ({elementsnum} items)</span>
-              <span className="font-black text-xl text-gray-900">${totalPrice.toFixed(2)}</span>
+              <span className="text-gray-500 text-sm">
+                Subtotal ({elementsnum} items)
+              </span>
+              <span className="font-black text-xl text-gray-900">
+                ${totalPrice.toFixed(2)}
+              </span>
             </div>
-            <p className="text-gray-400 text-xs mb-4">Taxes and delivery calculated at checkout</p>
-            <button onClick={() => navigate("/checkout")} className="w-full bg-gray-900 hover:bg-gray-700 text-amber-50 py-3.5 rounded-xl font-bold text-base transition flex items-center justify-center gap-2 cursor-pointer">
+            <p className="text-gray-400 text-xs mb-4">
+              Taxes and delivery calculated at checkout
+            </p>
+            <button
+              onClick={() => {
+                isLogined ? navigate("/checkout") : navigate("/register");
+              }}
+              className="w-full bg-gray-900 hover:bg-gray-700 text-amber-50 py-3.5 rounded-xl font-bold text-base transition flex items-center justify-center gap-2 cursor-pointer"
+            >
               <i className="fa-solid fa-lock text-amber-400 text-sm"></i>
               Checkout
             </button>

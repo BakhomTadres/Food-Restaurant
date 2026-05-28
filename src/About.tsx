@@ -1,12 +1,28 @@
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-
+import { useState } from "react";
 export default function About() {
   const values = [
-    { icon: "fa-heart", title: "Made with Love", desc: "Every dish is prepared with care and passion." },
-    { icon: "fa-seedling", title: "Fresh & Local", desc: "We source ingredients from trusted local farms." },
-    { icon: "fa-users", title: "Family Friendly", desc: "A welcoming space for everyone to enjoy." },
-    { icon: "fa-award", title: "Quality First", desc: "Uncompromising standards in every meal we serve." },
+    {
+      icon: "fa-heart",
+      title: "Made with Love",
+      desc: "Every dish is prepared with care and passion.",
+    },
+    {
+      icon: "fa-seedling",
+      title: "Fresh & Local",
+      desc: "We source ingredients from trusted local farms.",
+    },
+    {
+      icon: "fa-users",
+      title: "Family Friendly",
+      desc: "A welcoming space for everyone to enjoy.",
+    },
+    {
+      icon: "fa-award",
+      title: "Quality First",
+      desc: "Uncompromising standards in every meal we serve.",
+    },
   ];
 
   const team = [
@@ -14,10 +30,32 @@ export default function About() {
     { name: "Sara Hassan", role: "Pastry Chef", emoji: "👩‍🍳" },
     { name: "Omar Khalid", role: "Sous Chef", emoji: "👨‍🍳" },
   ];
+  let [elementsInCartNum, setElementsInCartNum] = useState<number>(
+    () => Number(localStorage.getItem("cartItemsNum")) || 0,
+  );
+  let [elementsInCart, setElementsInCart] = useState<
+    {
+      id: number;
+      name: string;
+      src: string;
+      alt: string;
+      desc: string;
+      price: number;
+    }[]
+  >(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    return cartItems ? JSON.parse(cartItems) : [];
+  });
 
   return (
     <div className="bg-gray-900 min-h-screen">
-      <Header location="about" />
+      <Header
+        location="about"
+        elements={elementsInCart}
+        setElements={setElementsInCart}
+        setElementsNum={setElementsInCartNum}
+        elementsnum={elementsInCartNum}
+      />
 
       {/* Hero */}
       <div className="pt-28 pb-16 px-6">
@@ -29,7 +67,8 @@ export default function About() {
             About <span className="text-amber-400">Us</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            A place where flavor meets comfort, and every meal brings people together.
+            A place where flavor meets comfort, and every meal brings people
+            together.
           </p>
         </div>
       </div>
@@ -53,7 +92,11 @@ export default function About() {
               starts with great ingredients and even greater care.
             </p>
             <div className="flex gap-6 mt-8">
-              {[["6+", "Years Open"], ["10K+", "Meals Served"], ["4.9", "Star Rating"]].map(([num, label]) => (
+              {[
+                ["6+", "Years Open"],
+                ["10K+", "Meals Served"],
+                ["4.9", "Star Rating"],
+              ].map(([num, label]) => (
                 <div key={label}>
                   <p className="text-2xl font-black text-amber-400">{num}</p>
                   <p className="text-gray-500 text-sm">{label}</p>
@@ -82,7 +125,9 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-black text-amber-50 mb-3">
               Our <span className="text-amber-400">Values</span>
             </h2>
-            <p className="text-gray-400">The principles that guide everything we do.</p>
+            <p className="text-gray-400">
+              The principles that guide everything we do.
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {values.map(({ icon, title, desc }) => (
@@ -108,11 +153,16 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-black text-amber-50 mb-3">
               Meet the <span className="text-amber-400">Team</span>
             </h2>
-            <p className="text-gray-400">The talented people behind every delicious dish.</p>
+            <p className="text-gray-400">
+              The talented people behind every delicious dish.
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {team.map(({ name, role, emoji }) => (
-              <div key={name} className="bg-gray-800 border border-white/5 rounded-2xl p-6 text-center">
+              <div
+                key={name}
+                className="bg-gray-800 border border-white/5 rounded-2xl p-6 text-center"
+              >
                 <div className="w-16 h-16 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                   {emoji}
                 </div>

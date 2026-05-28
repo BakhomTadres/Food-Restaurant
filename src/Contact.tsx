@@ -3,10 +3,33 @@ import Footer from "./Components/Footer";
 import { useState } from "react";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  let [elementsInCartNum, setElementsInCartNum] = useState<number>(
+    () => Number(localStorage.getItem("cartItemsNum")) || 0,
+  );
+  let [elementsInCart, setElementsInCart] = useState<
+    {
+      id: number;
+      name: string;
+      src: string;
+      alt: string;
+      desc: string;
+      price: number;
+    }[]
+  >(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    return cartItems ? JSON.parse(cartItems) : [];
+  });
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -14,7 +37,8 @@ export default function Contact() {
     if (!form.email.trim()) newErrors.email = "Email is required";
     else if (!form.email.includes("@")) newErrors.email = "Enter a valid email";
     if (!form.message.trim()) newErrors.message = "Message is required";
-    else if (form.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
+    else if (form.message.trim().length < 10)
+      newErrors.message = "Message must be at least 10 characters";
     return newErrors;
   };
 
@@ -32,7 +56,11 @@ export default function Contact() {
     }, 1500);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: "" });
@@ -64,7 +92,13 @@ export default function Contact() {
 
   return (
     <div className="bg-gray-900 min-h-screen">
-      <Header location="contact" />
+      <Header
+        location="contact"
+        elements={elementsInCart}
+        setElements={setElementsInCart}
+        setElementsNum={setElementsInCartNum}
+        elementsnum={elementsInCartNum}
+      />
 
       {/* Hero */}
       <div className="pt-28 pb-16 px-6">
@@ -76,7 +110,8 @@ export default function Contact() {
             Contact <span className="text-amber-400">Us</span>
           </h1>
           <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Have a question, a reservation request, or just want to say hi? We'd love to hear from you.
+            Have a question, a reservation request, or just want to say hi? We'd
+            love to hear from you.
           </p>
         </div>
       </div>
@@ -94,7 +129,9 @@ export default function Contact() {
               </div>
               <h3 className="text-amber-50 font-bold mb-2">{title}</h3>
               {lines.map((line) => (
-                <p key={line} className="text-gray-400 text-sm">{line}</p>
+                <p key={line} className="text-gray-400 text-sm">
+                  {line}
+                </p>
               ))}
             </div>
           ))}
@@ -104,7 +141,6 @@ export default function Contact() {
       {/* Form + Map Section */}
       <section className="px-6 pb-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-
           {/* Contact Form */}
           <div className="bg-gray-800 border border-white/5 rounded-3xl p-8 md:p-10">
             {submitted ? (
@@ -112,12 +148,24 @@ export default function Contact() {
                 <div className="w-20 h-20 bg-green-400/10 border border-green-400/20 rounded-full flex items-center justify-center mb-6">
                   <i className="fa-solid fa-circle-check text-green-400 text-3xl"></i>
                 </div>
-                <h3 className="text-2xl font-black text-amber-50 mb-3">Message Sent!</h3>
+                <h3 className="text-2xl font-black text-amber-50 mb-3">
+                  Message Sent!
+                </h3>
                 <p className="text-gray-400 mb-8">
-                  Thanks for reaching out. We'll get back to you within 24 hours.
+                  Thanks for reaching out. We'll get back to you within 24
+                  hours.
                 </p>
                 <button
-                  onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", subject: "", message: "" }); }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setForm({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      subject: "",
+                      message: "",
+                    });
+                  }}
                   className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-xl transition cursor-pointer"
                 >
                   Send Another Message
@@ -125,8 +173,12 @@ export default function Contact() {
               </div>
             ) : (
               <>
-                <h2 className="text-2xl font-black text-amber-50 mb-2">Send us a message</h2>
-                <p className="text-gray-400 mb-8 text-sm">Fill out the form below and we'll respond as soon as possible.</p>
+                <h2 className="text-2xl font-black text-amber-50 mb-2">
+                  Send us a message
+                </h2>
+                <p className="text-gray-400 mb-8 text-sm">
+                  Fill out the form below and we'll respond as soon as possible.
+                </p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Name + Email */}
@@ -143,7 +195,11 @@ export default function Contact() {
                         placeholder="Your name"
                         className={`w-full bg-gray-700 border ${errors.name ? "border-red-500" : "border-white/10"} focus:border-amber-400 text-amber-50 placeholder-gray-500 rounded-xl px-4 py-3 text-sm outline-none transition`}
                       />
-                      {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                      {errors.name && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-300 mb-1.5">
@@ -157,14 +213,20 @@ export default function Contact() {
                         placeholder="your@email.com"
                         className={`w-full bg-gray-700 border ${errors.email ? "border-red-500" : "border-white/10"} focus:border-amber-400 text-amber-50 placeholder-gray-500 rounded-xl px-4 py-3 text-sm outline-none transition`}
                       />
-                      {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                      {errors.email && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   {/* Phone + Subject */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-1.5">Phone</label>
+                      <label className="block text-sm font-semibold text-gray-300 mb-1.5">
+                        Phone
+                      </label>
                       <input
                         type="tel"
                         name="phone"
@@ -175,19 +237,33 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-1.5">Subject</label>
+                      <label className="block text-sm font-semibold text-gray-300 mb-1.5">
+                        Subject
+                      </label>
                       <select
                         name="subject"
                         value={form.subject}
                         onChange={handleChange}
                         className="w-full bg-gray-700 border border-white/10 focus:border-amber-400 text-amber-50 rounded-xl px-4 py-3 text-sm outline-none transition cursor-pointer"
                       >
-                        <option value="" className="bg-gray-800">Select a topic</option>
-                        <option value="reservation" className="bg-gray-800">Table Reservation</option>
-                        <option value="order" className="bg-gray-800">Order Issue</option>
-                        <option value="feedback" className="bg-gray-800">Feedback</option>
-                        <option value="catering" className="bg-gray-800">Catering / Events</option>
-                        <option value="other" className="bg-gray-800">Other</option>
+                        <option value="" className="bg-gray-800">
+                          Select a topic
+                        </option>
+                        <option value="reservation" className="bg-gray-800">
+                          Table Reservation
+                        </option>
+                        <option value="order" className="bg-gray-800">
+                          Order Issue
+                        </option>
+                        <option value="feedback" className="bg-gray-800">
+                          Feedback
+                        </option>
+                        <option value="catering" className="bg-gray-800">
+                          Catering / Events
+                        </option>
+                        <option value="other" className="bg-gray-800">
+                          Other
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -205,8 +281,14 @@ export default function Contact() {
                       placeholder="Tell us how we can help..."
                       className={`w-full bg-gray-700 border ${errors.message ? "border-red-500" : "border-white/10"} focus:border-amber-400 text-amber-50 placeholder-gray-500 rounded-xl px-4 py-3 text-sm outline-none transition resize-none`}
                     />
-                    {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
-                    <p className="text-gray-500 text-xs mt-1">{form.message.length} / 500</p>
+                    {errors.message && (
+                      <p className="text-red-400 text-xs mt-1">
+                        {errors.message}
+                      </p>
+                    )}
+                    <p className="text-gray-500 text-xs mt-1">
+                      {form.message.length} / 500
+                    </p>
                   </div>
 
                   <button
@@ -235,7 +317,7 @@ export default function Contact() {
           <div className="flex flex-col gap-6">
             {/* Map placeholder */}
             <div className="bg-gray-800 border border-white/5 rounded-3xl overflow-hidden flex-1 min-h-64 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-800 flex flex-col items-center justify-center gap-4">
+              <div className="absolute inset-0 bg-linear-to-br from-gray-700 to-gray-800 flex flex-col items-center justify-center gap-4">
                 <div className="w-16 h-16 bg-amber-400/10 border border-amber-400/20 rounded-full flex items-center justify-center">
                   <i className="fa-solid fa-map-location-dot text-amber-400 text-2xl"></i>
                 </div>
@@ -256,18 +338,42 @@ export default function Contact() {
 
             {/* Social Media */}
             <div className="bg-gray-800 border border-white/5 rounded-3xl p-8">
-              <h3 className="text-amber-50 font-black text-lg mb-2">Follow Us</h3>
-              <p className="text-gray-400 text-sm mb-6">Stay updated with our latest dishes and offers.</p>
+              <h3 className="text-amber-50 font-black text-lg mb-2">
+                Follow Us
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">
+                Stay updated with our latest dishes and offers.
+              </p>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: "fa-brands fa-instagram", label: "Instagram", handle: "@food.restaurant", color: "from-pink-600 to-purple-600" },
-                  { icon: "fa-brands fa-facebook", label: "Facebook", handle: "Food Restaurant", color: "from-blue-600 to-blue-700" },
-                  { icon: "fa-brands fa-tiktok", label: "TikTok", handle: "@food.restaurant", color: "from-gray-900 to-gray-700" },
-                  { icon: "fa-brands fa-whatsapp", label: "WhatsApp", handle: "+20 100 000 0000", color: "from-green-600 to-green-700" },
+                  {
+                    icon: "fa-brands fa-instagram",
+                    label: "Instagram",
+                    handle: "@food.restaurant",
+                    color: "from-pink-600 to-purple-600",
+                  },
+                  {
+                    icon: "fa-brands fa-facebook",
+                    label: "Facebook",
+                    handle: "Food Restaurant",
+                    color: "from-blue-600 to-blue-700",
+                  },
+                  {
+                    icon: "fa-brands fa-tiktok",
+                    label: "TikTok",
+                    handle: "@food.restaurant",
+                    color: "from-gray-900 to-gray-700",
+                  },
+                  {
+                    icon: "fa-brands fa-whatsapp",
+                    label: "WhatsApp",
+                    handle: "+20 100 000 0000",
+                    color: "from-green-600 to-green-700",
+                  },
                 ].map(({ icon, label, handle, color }) => (
                   <div
                     key={label}
-                    className={`bg-gradient-to-br ${color} rounded-xl p-4 cursor-pointer hover:scale-105 transition-transform duration-200`}
+                    className={`bg-linear-to-br ${color} rounded-xl p-4 cursor-pointer hover:scale-105 transition-transform duration-200`}
                   >
                     <i className={`${icon} text-white text-xl mb-2 block`}></i>
                     <p className="text-white font-bold text-sm">{label}</p>

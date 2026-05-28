@@ -1,19 +1,51 @@
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function HomePage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: "fa-leaf", title: "Fresh Ingredients", desc: "Sourced daily from local farms" },
-    { icon: "fa-fire-flame-curved", title: "Made to Order", desc: "Every dish cooked fresh for you" },
-    { icon: "fa-truck-fast", title: "Fast Delivery", desc: "Hot food at your door in 30 min" },
+    {
+      icon: "fa-leaf",
+      title: "Fresh Ingredients",
+      desc: "Sourced daily from local farms",
+    },
+    {
+      icon: "fa-fire-flame-curved",
+      title: "Made to Order",
+      desc: "Every dish cooked fresh for you",
+    },
+    {
+      icon: "fa-truck-fast",
+      title: "Fast Delivery",
+      desc: "Hot food at your door in 30 min",
+    },
   ];
+  let [elementsInCartNum, setElementsInCartNum] = useState<number>(
+    () => Number(localStorage.getItem("cartItemsNum")) || 0,
+  );
+  let [elementsInCart, setElementsInCart] = useState<
+    {
+      id: number;
+      name: string;
+      src: string;
+      alt: string;
+      desc: string;
+      price: number;
+    }[]
+  >(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    return cartItems ? JSON.parse(cartItems) : [];
+  });
 
   return (
     <>
-      <Header />
+      <Header elements={elementsInCart}
+        setElements={setElementsInCart}
+        setElementsNum={setElementsInCartNum}
+        elementsnum={elementsInCartNum}/>
 
       {/* Hero Section */}
       <div className="relative bg-[url(/images/background.avif)] bg-right md:bg-center bg-cover min-h-screen flex items-center">
@@ -29,11 +61,13 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl text-amber-50 font-black leading-none mb-6">
-              Fresh Food,<br />
+              Fresh Food,
+              <br />
               <span className="text-amber-400">Great Taste.</span>
             </h1>
             <p className="text-gray-300 text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
-              Experience delicious meals made with fresh ingredients and served with love — every bite feels special.
+              Experience delicious meals made with fresh ingredients and served
+              with love — every bite feels special.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -61,7 +95,9 @@ export default function HomePage() {
                 { num: "4.9★", label: "Average Rating" },
               ].map(({ num, label }) => (
                 <div key={label}>
-                  <p className="text-2xl md:text-3xl font-black text-amber-400">{num}</p>
+                  <p className="text-2xl md:text-3xl font-black text-amber-400">
+                    {num}
+                  </p>
                   <p className="text-gray-400 text-sm">{label}</p>
                 </div>
               ))}
@@ -83,7 +119,8 @@ export default function HomePage() {
               Why Choose <span className="text-amber-400">Us?</span>
             </h2>
             <p className="text-gray-400 max-w-md mx-auto">
-              We go above and beyond to make your dining experience unforgettable.
+              We go above and beyond to make your dining experience
+              unforgettable.
             </p>
           </div>
 
@@ -96,7 +133,9 @@ export default function HomePage() {
                 <div className="w-14 h-14 bg-amber-400/10 group-hover:bg-amber-400/20 rounded-xl flex items-center justify-center mb-5 transition">
                   <i className={`fa-solid ${icon} text-amber-400 text-xl`}></i>
                 </div>
-                <h3 className="text-amber-50 font-bold text-xl mb-2">{title}</h3>
+                <h3 className="text-amber-50 font-bold text-xl mb-2">
+                  {title}
+                </h3>
                 <p className="text-gray-400">{desc}</p>
               </div>
             ))}
