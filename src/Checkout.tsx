@@ -375,7 +375,94 @@ export default function Checkout() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left: Steps */}
+          {/* Left: Order Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-gray-800 border border-white/5 rounded-3xl p-6 sticky top-28">
+              <h3 className="font-black text-amber-50 text-lg mb-5 flex items-center gap-2">
+                <i className="fa-solid fa-receipt text-amber-400 text-sm"></i>
+                Order Summary
+              </h3>
+
+              {/* Items */}
+              <ul className="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1">
+                {cartItems.map((item) => (
+                  <li key={item.id} className="flex gap-3 items-center">
+                    <div className="relative shrink-0">
+                      <img
+                        src={item.src}
+                        alt={item.name}
+                        className="w-12 h-12 object-cover rounded-xl"
+                      />
+                      <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-amber-400 text-gray-900 text-xs font-black rounded-full flex items-center justify-center">
+                        {item.quantity}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-amber-50 text-xs font-semibold truncate">
+                        {item.name}
+                      </p>
+                      <p className="text-gray-500 text-xs">
+                        ${item.price.toFixed(2)} each
+                      </p>
+                    </div>
+                    <p className="text-amber-50 text-sm font-bold">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="border-t border-white/10 pt-4 space-y-2.5">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Subtotal</span>
+                  <span className="text-amber-50">${subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Delivery fee</span>
+                  <span
+                    className={
+                      delivery === 0
+                        ? "text-green-400 font-semibold"
+                        : "text-amber-50"
+                    }
+                  >
+                    {delivery === 0 ? "FREE" : `$${delivery.toFixed(2)}`}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Tax (10%)</span>
+                  <span className="text-amber-50">${tax.toFixed(2)}</span>
+                </div>
+                <div className="border-t border-white/10 pt-3 flex justify-between items-center">
+                  <span className="text-amber-50 font-black text-lg">
+                    Total
+                  </span>
+                  <span className="text-amber-400 font-black text-xl">
+                    ${total.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+
+              {delivery > 0 && (
+                <div className="mt-4 bg-amber-400/5 border border-amber-400/10 rounded-xl px-4 py-3">
+                  <p className="text-amber-400/80 text-xs">
+                    <i className="fa-solid fa-truck-fast mr-1.5"></i>
+                    Add{" "}
+                    <span className="font-bold">
+                      ${(30 - subtotal).toFixed(2)}
+                    </span>{" "}
+                    more for free delivery!
+                  </p>
+                </div>
+              )}
+
+              <div className="mt-5 flex items-center justify-center gap-4 text-gray-600">
+                <i className="fa-solid fa-lock text-sm"></i>
+                <p className="text-xs">Secured by SSL encryption</p>
+              </div>
+            </div>
+          </div>
+          {/* Right: Steps */}
           <div className="lg:col-span-2">
             {/* ── STEP 1: DELIVERY ── */}
             {currentStep === "delivery" && (
@@ -958,94 +1045,6 @@ export default function Checkout() {
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Right: Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="bg-gray-800 border border-white/5 rounded-3xl p-6 sticky top-28">
-              <h3 className="font-black text-amber-50 text-lg mb-5 flex items-center gap-2">
-                <i className="fa-solid fa-receipt text-amber-400 text-sm"></i>
-                Order Summary
-              </h3>
-
-              {/* Items */}
-              <ul className="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1">
-                {cartItems.map((item) => (
-                  <li key={item.id} className="flex gap-3 items-center">
-                    <div className="relative shrink-0">
-                      <img
-                        src={item.src}
-                        alt={item.name}
-                        className="w-12 h-12 object-cover rounded-xl"
-                      />
-                      <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-amber-400 text-gray-900 text-xs font-black rounded-full flex items-center justify-center">
-                        {item.quantity}
-                      </span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-amber-50 text-xs font-semibold truncate">
-                        {item.name}
-                      </p>
-                      <p className="text-gray-500 text-xs">
-                        ${item.price.toFixed(2)} each
-                      </p>
-                    </div>
-                    <p className="text-amber-50 text-sm font-bold">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="border-t border-white/10 pt-4 space-y-2.5">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Subtotal</span>
-                  <span className="text-amber-50">${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Delivery fee</span>
-                  <span
-                    className={
-                      delivery === 0
-                        ? "text-green-400 font-semibold"
-                        : "text-amber-50"
-                    }
-                  >
-                    {delivery === 0 ? "FREE" : `$${delivery.toFixed(2)}`}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Tax (10%)</span>
-                  <span className="text-amber-50">${tax.toFixed(2)}</span>
-                </div>
-                <div className="border-t border-white/10 pt-3 flex justify-between items-center">
-                  <span className="text-amber-50 font-black text-lg">
-                    Total
-                  </span>
-                  <span className="text-amber-400 font-black text-xl">
-                    ${total.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-
-              {delivery > 0 && (
-                <div className="mt-4 bg-amber-400/5 border border-amber-400/10 rounded-xl px-4 py-3">
-                  <p className="text-amber-400/80 text-xs">
-                    <i className="fa-solid fa-truck-fast mr-1.5"></i>
-                    Add{" "}
-                    <span className="font-bold">
-                      ${(30 - subtotal).toFixed(2)}
-                    </span>{" "}
-                    more for free delivery!
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-5 flex items-center justify-center gap-4 text-gray-600">
-                <i className="fa-solid fa-lock text-sm"></i>
-                <p className="text-xs">Secured by SSL encryption</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
