@@ -123,7 +123,7 @@ export default function Menu() {
         <h1 className="text-2xl font-bold text-center mt-20 mb-10 text-amber-50">
           Menu
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:w-3/4 mx-auto pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 w-[90%] md:w-3/4 mx-auto pb-20">
           {dishes.map((dish) => (
             <div
               key={dish.id}

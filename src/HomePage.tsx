@@ -16,7 +16,7 @@ export default function HomePage() {
       <Header />
 
       {/* Hero Section */}
-      <div className="relative bg-[url(/public/background.avif)] bg-right md:bg-center bg-cover min-h-screen flex items-center">
+      <div className="relative bg-[url(/images/background.avif)] bg-right md:bg-center bg-cover min-h-screen flex items-center">
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-linear-to-r from-gray-900/85 via-gray-900/60 to-transparent"></div>
 
